@@ -162,7 +162,7 @@
     <div class="stats">
       <div class="stat"><b>約 570 km</b><span>總里程（仙台環迴）</span></div>
       <div class="stat"><b>約 ¥10,850</b><span>高速費（ETC 概估）</span></div>
-      <div class="stat"><b>約 ¥3.5 萬</b><span>預估開銷（不含住宿）</span></div>
+      <div class="stat"><b>約 ¥19,250</b><span>油費＋過路費＋門票</span></div>
     </div>
   </div>
 </header>
@@ -290,12 +290,6 @@ const budget = [
   ["故里村 Wonder Castle", "門票", 1200, "成人 700 + 國小 500"],
   ["民俗藝能傳承館", "門票", 100, "國小兒童免費"],
   ["久保田城御隅櫓", "門票", 100, "國小兒童免費"],
-  ["田澤湖餵魚與蜂蜜點心", "餐飲娛樂", 1000, "魚飼料數包 + 蜂蜜冰淇淋"],
-  ["市區飯店停車費", "住宿交通", 1000, "一晚約 700–1,000"],
-  ["第一天午餐（故里村）", "餐飲", 2500, "橫手炒麵、地雞拉麵"],
-  ["第一天晚餐（秋田市區）", "餐飲", 6000, "米棒火鍋、比內地雞"],
-  ["第二天午餐（田澤湖畔）", "餐飲", 3000, "稻庭烏龍麵或定食"],
-  ["零食與途中補給", "雜支", 2000, "SA 點心、飲料"],
 ];
 
 const checklist = [
@@ -350,7 +344,7 @@ app.innerHTML = days.map(d => `
     <ol class="timeline">${d.items.map(it => it.type === "move" ? moveCard(it) : spotCard(it, d.color)).join("")}</ol>
   </section>`).join("") + `
   <section class="extra" id="budget">
-    <h2>預估開銷（不含住宿）</h2>
+    <h2>預估費用（油費、過路費、門票）</h2>
     <table class="budget">
       <thead><tr><th>項目</th><th>金額</th></tr></thead>
       <tbody>${budget.map(([n, c, v, s]) => `<tr><td>${n}<span class="note">${c}｜${s}</span></td><td class="num">${yen(v)}</td></tr>`).join("")}</tbody>
