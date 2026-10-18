@@ -99,8 +99,18 @@
     background: var(--surface); border-radius: 14px; overflow: hidden;
     box-shadow: var(--shadow); border: 1px solid var(--line);
   }
-  .card .photo { position: relative; aspect-ratio: 16 / 9; background: var(--surface-2); }
+  .card .photos {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; background: var(--surface-2);
+  }
+  .card .photos::-webkit-scrollbar { display: none; }
+  .card .photo { position: relative; flex: 0 0 100%; aspect-ratio: 16 / 9; scroll-snap-align: start; }
   .card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .photo .count {
+    position: absolute; left: 6px; top: 6px;
+    font-size: .7rem; color: #fff; background: rgba(0,0,0,.5);
+    padding: 1px 8px; border-radius: 999px;
+  }
   .card .photo .credit {
     position: absolute; right: 6px; bottom: 6px;
     font-size: .65rem; color: #fff; background: rgba(0,0,0,.5);
@@ -197,8 +207,11 @@ const photos = {
   sendai:   { src: IMG + "thumb/1/11/Sendai_Station_West_Exit_2021.jpg/960px-Sendai_Station_West_Exit_2021.jpg", page: "File:Sendai_Station_West_Exit_2021.jpg", by: "Mai Kana Chan", lic: "CC BY-SA 4.0" },
   furusato: { src: IMG + "thumb/3/3a/Akita_Furusato-mura_20190503a.jpg/960px-Akita_Furusato-mura_20190503a.jpg", page: "File:Akita_Furusato-mura_20190503a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   wonder:   { src: IMG + "thumb/3/39/Akita_Furusato-mura%2C_Wonder_Castle_3.jpg/960px-Akita_Furusato-mura%2C_Wonder_Castle_3.jpg", page: "File:Akita_Furusato-mura,_Wonder_Castle_3.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
-  crane:    { src: IMG + "thumb/0/07/Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing%2C_Akihabara%2C_Chiyoda%2C_Tokyo%2C_Japan.jpg/960px-Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing%2C_Akihabara%2C_Chiyoda%2C_Tokyo%2C_Japan.jpg", page: "File:Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing,_Akihabara,_Chiyoda,_Tokyo,_Japan.jpg", by: "Basile Morin", lic: "CC BY-SA 4.0", note: "示意照（東京秋葉原）" },
-  kawabata: { src: IMG + "thumb/3/35/Kawabata_Street_at_night.jpg/960px-Kawabata_Street_at_night.jpg", page: "File:Kawabata_Street_at_night.jpg", by: "掬茶", lic: "CC BY-SA 4.0", note: "飯店旁川反通夜景" },
+  // 以下非 Wikimedia 照片：link 指向原始出處
+  mandai1:  { src: "https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/58/stores/225077/2026060314264974eabb31-c44b-4b65-974d-6b6303087fa3.webp", link: "https://shop.mandai-s.jp/detail/19/", by: "万代 官方網站" },
+  mandai2:  { src: "https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/58/stores/225077/202606031426498ffc8e69-aaae-4160-bd5f-2205cab5d9f5.webp", link: "https://shop.mandai-s.jp/detail/19/", by: "万代 官方網站" },
+  hotel1:   { src: "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RfWYFrGSXMmRdI39Fhk96A73gMLBfhQWa-7NGZvrKQ8M0zuSD0KHB95CXzTERuw_Sf9NpfhbUeKHrbKkGlRhDYBGASR56_j5CkIgiKngpwmfJsIx1R4e2tXhXvwP_hoCeexTEP_bl76ELp=w960-h640-k-no", link: "https://www.google.com/maps/search/?api=1&query=EN+HOTEL+Akita", by: "Google 地圖使用者" },
+  hotel2:   { src: "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Tmou9xXHawYSKSX75qdJDQaEpJ-YgTlq4ZTxA_ZHI9FdENYOpfcHXjnKmx-rKKiQ50y0xqYJROobnPrJpWS4zsZ2o0_raRQGD3Vtcs2dEORaiL_HcAx6yy7Y7SdnBVX96l1nJxkfe1Uj6A=w960-h640-k-no", link: "https://www.google.com/maps/search/?api=1&query=EN+HOTEL+Akita", by: "Google 地圖使用者" },
   kanto:    { src: IMG + "thumb/5/5a/Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg/960px-Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", page: "File:Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   castle:   { src: IMG + "thumb/9/96/Osumi-Yagura_of_Kubota-Castle_20180520.jpg/960px-Osumi-Yagura_of_Kubota-Castle_20180520.jpg", page: "File:Osumi-Yagura_of_Kubota-Castle_20180520.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   tatsuko:  { src: IMG + "thumb/b/be/%E6%BD%9F%E5%B0%BB%E3%81%9F%E3%81%A4%E3%81%93%E5%83%8F20220702-P1000462.jpg/960px-%E6%BD%9F%E5%B0%BB%E3%81%9F%E3%81%A4%E3%81%93%E5%83%8F20220702-P1000462.jpg", page: "File:潟尻たつこ像20220702-P1000462.jpg", by: "くろふね", lic: "CC BY 4.0" },
@@ -229,7 +242,7 @@ const days = [
       { type: "move", time: "14:50 – 15:00", eta: "約 5 分鐘", dist: "約 2 km", fee: "免費",
         route: "橫手市內短程移動", q: "万代 横手店 横手市安田向田179-1" },
       { type: "spot", time: "15:00 – 16:15", stay: "停留約 1 小時 15 分", name: "萬代 橫手店", ja: "万代 横手店（横手市安田向田179-1，フレスポよこて內）",
-        photo: "crane", q: "万代 横手店 横手市安田向田179-1",
+        photo: ["mandai1", "mandai2"], q: "万代 横手店 横手市安田向田179-1",
         html: `<p>大型室內遊樂場，夾娃娃機超過 200 台，部分機台 10 日圓起就能玩，下雨天也適合。</p>`,
         cost: "免費入場（遊戲依個人需求）",
         note: "附設大型免費停車場，室內冷暖氣完備。",
@@ -237,7 +250,7 @@ const days = [
       { type: "move", time: "16:15 – 17:15", eta: "約 1 小時", dist: "約 73 km", fee: "高速費約 ¥1,870",
         route: "橫手 IC ➜ 秋田自動車道北上 ➜ 秋田中央 IC ➜ 大町", tip: "10 月約 17:00 日落，後半段可能已天黑。", q: "EN HOTEL Akita 秋田市大町2-2-41" },
       { type: "spot", time: "17:15 起", stay: "夜宿秋田市區", name: "EN HOTEL Akita", ja: "秋田市大町2-2-41（川反入口旁）",
-        photo: "kawabata", q: "EN HOTEL Akita 秋田市大町2-2-41",
+        photo: ["hotel1", "hotel2"], q: "EN HOTEL Akita 秋田市大町2-2-41",
         html: `<p>入住卸行李後，步行到川反美食街或大町商圈，吃秋田米棒火鍋（きりたんぽ鍋）或比內地雞釜飯。</p>`,
         cost: "住宿 ¥6,783／晚；停車約 ¥700–1,000／晚",
         note: "周邊有特約停車場與便利商店，晚上散步很方便。" },
@@ -312,10 +325,15 @@ const GROUP_DESC = { "交通": "租車、油費、過路費", "其他": "住宿�
 // 依分類加總；不帶參數則為全部合計
 const sum = (g) => budget.filter(b => !g || b[1] === g).reduce((a, b) => a + b[2], 0);
 
+const srcLink = (p) => p.link || `https://commons.wikimedia.org/wiki/${encodeURI(p.page)}`;
+
 function spotCard(it, color) {
-  const p = it.photo && photos[it.photo];
-  const photo = p ? `<div class="photo"><img src="${p.src}" alt="${it.name}" loading="lazy" decoding="async">
-      <a class="credit" href="https://commons.wikimedia.org/wiki/${encodeURI(p.page)}" target="_blank" rel="noopener">${p.note ? p.note + "・" : ""}© ${p.by}</a></div>` : "";
+  // photo 可為單一 key 或 key 陣列；多張時可左右滑動
+  const list = [].concat(it.photo || []).map(k => photos[k]);
+  const photo = list.length ? `<div class="photos">${list.map((p, i) => `<div class="photo">
+      <img src="${p.src}" alt="${it.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      ${list.length > 1 ? `<span class="count">${i + 1} / ${list.length}　左右滑動</span>` : ""}
+      <a class="credit" href="${srcLink(p)}" target="_blank" rel="noopener">${p.note ? p.note + "・" : ""}© ${p.by}</a></div>`).join("")}</div>` : "";
   const info = [
     it.cost && `<dt>費用</dt><dd>${it.cost}</dd>`,
     it.note && `<dt>備註</dt><dd>${it.note}</dd>`,
@@ -382,8 +400,9 @@ document.querySelectorAll(".checklist input").forEach(el => {
   });
 });
 
-document.getElementById("credits").innerHTML = Object.values(photos).map(p =>
-  `<li><a href="https://commons.wikimedia.org/wiki/${encodeURI(p.page)}" target="_blank" rel="noopener">${p.page.replace("File:", "")}</a>，${p.by}，${p.lic}</li>`).join("");
+document.getElementById("credits").innerHTML = Object.values(photos).map(p => p.page
+  ? `<li><a href="${srcLink(p)}" target="_blank" rel="noopener">${p.page.replace("File:", "")}</a>，${p.by}，${p.lic}</li>`
+  : `<li><a href="${srcLink(p)}" target="_blank" rel="noopener">${p.by}</a></li>`).join("");
 </script>
 </body>
 </html>
