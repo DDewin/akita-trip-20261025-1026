@@ -204,7 +204,6 @@ const view = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURI
 
 const IMG = "https://upload.wikimedia.org/wikipedia/commons/";
 const photos = {
-  sendai:   { src: IMG + "thumb/1/11/Sendai_Station_West_Exit_2021.jpg/960px-Sendai_Station_West_Exit_2021.jpg", page: "File:Sendai_Station_West_Exit_2021.jpg", by: "Mai Kana Chan", lic: "CC BY-SA 4.0" },
   furusato: { src: IMG + "thumb/3/3a/Akita_Furusato-mura_20190503a.jpg/960px-Akita_Furusato-mura_20190503a.jpg", page: "File:Akita_Furusato-mura_20190503a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   wonder:   { src: IMG + "thumb/3/39/Akita_Furusato-mura%2C_Wonder_Castle_3.jpg/960px-Akita_Furusato-mura%2C_Wonder_Castle_3.jpg", page: "File:Akita_Furusato-mura,_Wonder_Castle_3.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   // 以下非 Wikimedia 照片：link 指向原始出處
@@ -260,7 +259,7 @@ const days = [
   {
     id: "day2", label: "DAY 2", color: "var(--day2)",
     title: "市區民俗巡禮 ➜ 田澤湖餵魚 ➜ 返回仙台",
-    sub: "10:00 退房出發，全日車程約 4 小時 50 分，約 19:20 回到仙台",
+    sub: "10:00 退房出發，全日車程約 4 小時 50 分，約 19:20 回到仙台荒町",
     items: [
       { type: "spot", time: "09:00 – 10:00", stay: "約 1 小時", name: "飯店早餐與退房", ja: "EN HOTEL Akita", photo: null, q: "EN HOTEL Akita 秋田市大町2-2-41",
         html: `<p>從容吃早餐、整理行李，10:00 前退房。大件行李先放後車廂，隨身輕裝出遊。</p>` },
@@ -295,9 +294,10 @@ const days = [
         cost: "蜂蜜冰淇淋約 ¥400",
         note: "停車位充足。營業 9:00–17:30（冬季至 17:00）。" },
       { type: "move", time: "16:20 – 19:20", eta: "約 3 小時", dist: "約 240 km", fee: "高速費約 ¥4,490",
-        route: "國道 46 號 ➜ 盛岡 IC ➜ 東北自動車道南下 ➜ 仙台", tip: "國道 46 號山路段約 17:00 後天黑，請小心駕駛。中途可在紫波 SA 或前澤 SA 休息、買伴手禮。", q: "仙台駅" },
-      { type: "spot", time: "約 19:20", name: "返抵仙台站", ja: "仙台駅", photo: "sendai", q: "仙台駅",
-        desc: "還車、圓滿結束旅程！" },
+        route: "國道 46 號 ➜ 盛岡 IC ➜ 東北自動車道南下 ➜ 仙台宮城 IC ➜ 荒町", tip: "國道 46 號山路段約 17:00 後天黑，請小心駕駛。中途可在紫波 SA 或前澤 SA 休息、買伴手禮。", q: "システムパーク荒町 仙台市若林区荒町106-2" },
+      { type: "spot", time: "約 19:20", name: "返抵 システムパーク荒町", ja: "仙台市若林区荒町106-2（24 小時營業停車場）", photo: null, q: "システムパーク荒町 仙台市若林区荒町106-2",
+        desc: "停好車，圓滿結束旅程！",
+        note: "共 18 個車位，5 號僅限輕型車，9–13 號為七十七銀行專用。只收現金（可用千元鈔），入口較窄請小心。" },
     ]
   }
 ];
