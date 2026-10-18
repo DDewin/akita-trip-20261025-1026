@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>秋田親子自駕兩天一夜</title>
-<meta name="description" content="仙台出發，秋田兩天一夜親子自駕行程：橫手故里村、萬代、竿燈體驗、千秋公園、田澤湖。">
+<meta name="description" content="仙台出發，秋田兩天一夜親子自駕行程：橫手故里村、Round1、竿燈體驗、千秋公園、田澤湖。">
 <meta name="theme-color" content="#1f4e5f">
 <style>
   :root {
@@ -206,10 +206,9 @@ const IMG = "https://upload.wikimedia.org/wikipedia/commons/";
 const photos = {
   furusato: { src: IMG + "thumb/3/3a/Akita_Furusato-mura_20190503a.jpg/960px-Akita_Furusato-mura_20190503a.jpg", page: "File:Akita_Furusato-mura_20190503a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   wonder:   { src: IMG + "thumb/3/39/Akita_Furusato-mura%2C_Wonder_Castle_3.jpg/960px-Akita_Furusato-mura%2C_Wonder_Castle_3.jpg", page: "File:Akita_Furusato-mura,_Wonder_Castle_3.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
+  round1:   { src: IMG + "thumb/7/72/Round_1_Akita_20160811.jpg/960px-Round_1_Akita_20160811.jpg", page: "File:Round_1_Akita_20160811.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
   // 以下非 Wikimedia 照片：link 指向原始出處
   times:    { src: "https://lh3.googleusercontent.com/grass-cs/AABkmLcv0GcZ2Gfcx5I7S4vpw48i7NIZsFYQ0F_gheTSvyY1OnDnwANulkNJlnc9tqk6HY_rubHTFsEDoDWHkL4UeQIOr41CVxjucFLa8ShInIvDgPoOjRBSYNnccV9RnGvRyUqtuDeU=w960-h640-k-no", link: "https://www.google.com/maps/search/?api=1&query=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BA%E3%82%AB%E3%83%BC+%E4%BB%99%E5%8F%B0%E9%A7%85%E8%A5%BF%E5%8F%A3%E5%BA%97", by: "Google 地圖" },
-  mandai1:  { src: "https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/58/stores/225077/2026060314264974eabb31-c44b-4b65-974d-6b6303087fa3.webp", link: "https://shop.mandai-s.jp/detail/19/", by: "万代 官方網站" },
-  mandai2:  { src: "https://site-images.hp.admin.can-ly.com/images/cms/edited/directories/58/stores/225077/202606031426498ffc8e69-aaae-4160-bd5f-2205cab5d9f5.webp", link: "https://shop.mandai-s.jp/detail/19/", by: "万代 官方網站" },
   hotel1:   { src: "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RfWYFrGSXMmRdI39Fhk96A73gMLBfhQWa-7NGZvrKQ8M0zuSD0KHB95CXzTERuw_Sf9NpfhbUeKHrbKkGlRhDYBGASR56_j5CkIgiKngpwmfJsIx1R4e2tXhXvwP_hoCeexTEP_bl76ELp=w960-h640-k-no", link: "https://www.google.com/maps/search/?api=1&query=EN+HOTEL+Akita", by: "Google 地圖使用者" },
   hotel2:   { src: "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Tmou9xXHawYSKSX75qdJDQaEpJ-YgTlq4ZTxA_ZHI9FdENYOpfcHXjnKmx-rKKiQ50y0xqYJROobnPrJpWS4zsZ2o0_raRQGD3Vtcs2dEORaiL_HcAx6yy7Y7SdnBVX96l1nJxkfe1Uj6A=w960-h640-k-no", link: "https://www.google.com/maps/search/?api=1&query=EN+HOTEL+Akita", by: "Google 地圖使用者" },
   kanto:    { src: IMG + "thumb/5/5a/Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg/960px-Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", page: "File:Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
@@ -225,8 +224,8 @@ const ICON_PIN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true
 const days = [
   {
     id: "day1", label: "DAY 1", color: "var(--day1)",
-    title: "橫手放電尋寶 ➜ 秋田市區美饌住宿",
-    sub: "10:00 從 Times 仙台駅西口店取車出發，全日車程約 3 小時 25 分",
+    title: "橫手放電 ➜ Round1 夾娃娃 ➜ 秋田市區住宿",
+    sub: "10:00 從 Times 仙台駅西口店取車出發，全日車程約 3 小時 40 分",
     items: [
       { type: "spot", time: "10:00", name: "Times 租車 仙台駅西口店 取車出發", ja: "タイムズカー 仙台駅西口店（仙台市青葉区五橋1-3，TEL 022-267-0123）",
         photo: "times", q: "タイムズカー 仙台駅西口店 仙台市青葉区五橋1-3",
@@ -239,17 +238,16 @@ const days = [
                <p><b>放電</b>：Wonder Castle 巨型近直角溜滑梯、球池攀爬與錯視藝術，長途車後徹底伸展筋骨。</p>`,
         cost: "園區免門票；Wonder Castle 成人 ¥700／國小 ¥500",
         note: "大片免費停車場。巨型滑梯有服裝規定（長褲、平底鞋、安全帽），依現場人員指示。" },
-      { type: "move", time: "14:50 – 15:00", eta: "約 5 分鐘", dist: "約 2 km", fee: "免費",
-        route: "橫手市內短程移動", q: "万代 横手店 横手市安田向田179-1" },
-      { type: "spot", time: "15:00 – 16:15", stay: "停留約 1 小時 15 分", name: "萬代 橫手店", ja: "万代 横手店（横手市安田向田179-1，フレスポよこて內）",
-        photo: ["mandai1", "mandai2"], q: "万代 横手店 横手市安田向田179-1",
-        html: `<p>大型室內遊樂場，夾娃娃機超過 200 台，部分機台 10 日圓起就能玩，下雨天也適合。</p>`,
-        cost: "免費入場（遊戲依個人需求）",
-        note: "附設大型免費停車場，室內冷暖氣完備。",
-        warn: "2025 年 7 月起改裝為「夾娃娃機專門店」，原本的二手玩具、模型販售已結束。想尋寶買玩具請先確認現況。" },
-      { type: "move", time: "16:15 – 17:15", eta: "約 1 小時", dist: "約 73 km", fee: "高速費約 ¥1,870",
-        route: "橫手 IC ➜ 秋田自動車道北上 ➜ 秋田中央 IC ➜ 大町", tip: "10 月約 17:00 日落，後半段可能已天黑。", q: "EN HOTEL Akita 秋田市大町2-2-41" },
-      { type: "spot", time: "17:15 起", stay: "夜宿秋田市區", name: "EN HOTEL Akita", ja: "秋田市大町2-2-41（川反入口旁）",
+      { type: "move", time: "14:50 – 16:00", eta: "約 1 小時 10 分", dist: "約 75 km", fee: "高速費約 ¥1,870",
+        route: "橫手 IC ➜ 秋田自動車道北上 ➜ 秋田中央 IC ➜ 卸町", tip: "孩子玩完故里村，可以在車上小睡。", q: "ラウンドワンスタジアム 秋田店 秋田市卸町1-1-2" },
+      { type: "spot", time: "16:00 – 17:15", stay: "停留約 1 小時 15 分", name: "Round1 秋田店", ja: "ラウンドワンスタジアム 秋田店（秋田市卸町1-1-2，TEL 018-896-6711）",
+        photo: "round1", q: "ラウンドワンスタジアム 秋田店 秋田市卸町1-1-2",
+        html: `<p>縣內最大級的夾娃娃機區，超過 300 台，也有 10 日圓起就能玩的機台，室內下雨天也適合。</p>`,
+        cost: "免費入場（遊戲依個人需求，建議先和孩子約好預算）",
+        note: "約 500 個車位，店內消費期間免費停車。未滿 16 歲須家長陪同。" },
+      { type: "move", time: "17:15 – 17:25", eta: "約 10 分鐘", dist: "約 3 km", fee: "免費",
+        route: "卸町 ➜ 大町市區", tip: "10 月約 17:00 日落，已經天黑，市區傍晚可能塞車。", q: "EN HOTEL Akita 秋田市大町2-2-41" },
+      { type: "spot", time: "17:25 起", stay: "夜宿秋田市區", name: "EN HOTEL Akita", ja: "秋田市大町2-2-41（川反入口旁）",
         photo: ["hotel1", "hotel2"], q: "EN HOTEL Akita 秋田市大町2-2-41",
         html: `<p>入住卸行李後，步行到川反美食街或大町商圈，吃秋田米棒火鍋（きりたんぽ鍋）或比內地雞釜飯。</p>`,
         cost: "住宿 ¥6,783／晚；停車約 ¥700–1,000／晚",
