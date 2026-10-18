@@ -139,6 +139,7 @@
   section.extra h2 { font-size: 1.2rem; margin: 0 0 12px; }
   table.budget { width: 100%; border-collapse: collapse; font-size: .9rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
   table.budget th, table.budget td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.budget tbody th { background: var(--surface-2); font-size: .85rem; }
   table.budget td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   table.budget tfoot td { font-weight: 700; }
   table.budget .note { display: block; color: var(--muted); font-size: .8rem; }
@@ -160,9 +161,9 @@
     <h1>仙台出發 秋田兩天一夜<br>親子自駕行程</h1>
     <p>家長與 7 歲孩童｜自駕（ETC 高速道路）｜住宿 EN HOTEL Akita</p>
     <div class="stats">
-      <div class="stat"><b>約 570 km</b><span>總里程（仙台環迴）</span></div>
-      <div class="stat"><b>約 ¥10,850</b><span>高速費（ETC 概估）</span></div>
-      <div class="stat"><b>約 ¥19,250</b><span>油費＋過路費＋門票</span></div>
+      <div class="stat"><b id="sum-traffic">¥35,710</b><span>交通費用<br>租車、油費、過路費</span></div>
+      <div class="stat"><b id="sum-other">¥8,183</b><span>其他費用<br>住宿、門票</span></div>
+      <div class="stat"><b id="sum-all">¥43,893</b><span>預估合計<br>不含餐費</span></div>
     </div>
   </div>
 </header>
@@ -235,7 +236,7 @@ const days = [
       { type: "spot", time: "17:15 起", stay: "夜宿秋田市區", name: "EN HOTEL Akita", ja: "秋田市大町2-2-41（川反入口旁）",
         photo: "kawabata", q: "EN HOTEL Akita 秋田市大町2-2-41",
         html: `<p>入住卸行李後，步行到川反美食街或大町商圈，吃秋田米棒火鍋（きりたんぽ鍋）或比內地雞釜飯。</p>`,
-        cost: "住宿依預訂方案；停車約 ¥700–1,000／晚",
+        cost: "住宿 ¥6,783／晚；停車約 ¥700–1,000／晚",
         note: "周邊有特約停車場與便利商店，晚上散步很方便。" },
     ]
   },
@@ -285,11 +286,13 @@ const days = [
 ];
 
 const budget = [
-  ["高速公路過路費", "交通", 10850, "仙台-橫手 4,490 + 橫手-秋田 1,870 + 盛岡-仙台 4,490"],
+  ["租車", "交通", 17860, "兩天"],
   ["油資", "交通", 7000, "總里程約 570 km"],
-  ["故里村 Wonder Castle", "門票", 1200, "成人 700 + 國小 500"],
-  ["民俗藝能傳承館", "門票", 100, "國小兒童免費"],
-  ["久保田城御隅櫓", "門票", 100, "國小兒童免費"],
+  ["高速公路過路費", "交通", 10850, "仙台-橫手 4,490 + 橫手-秋田 1,870 + 盛岡-仙台 4,490"],
+  ["住宿 EN HOTEL Akita", "其他", 6783, "一晚"],
+  ["故里村 Wonder Castle", "其他", 1200, "門票｜成人 700 + 國小 500"],
+  ["民俗藝能傳承館", "其他", 100, "門票｜國小兒童免費"],
+  ["久保田城御隅櫓", "其他", 100, "門票｜國小兒童免費"],
 ];
 
 const checklist = [
@@ -302,6 +305,9 @@ const checklist = [
 ];
 
 const yen = (n) => "¥" + n.toLocaleString("ja-JP");
+const GROUP_DESC = { "交通": "租車、油費、過路費", "其他": "住宿、門票" };
+// 依分類加總；不帶參數則為全部合計
+const sum = (g) => budget.filter(b => !g || b[1] === g).reduce((a, b) => a + b[2], 0);
 
 function spotCard(it, color) {
   const p = it.photo && photos[it.photo];
@@ -344,17 +350,26 @@ app.innerHTML = days.map(d => `
     <ol class="timeline">${d.items.map(it => it.type === "move" ? moveCard(it) : spotCard(it, d.color)).join("")}</ol>
   </section>`).join("") + `
   <section class="extra" id="budget">
-    <h2>預估費用（油費、過路費、門票）</h2>
+    <h2>預估費用（不含餐費）</h2>
     <table class="budget">
       <thead><tr><th>項目</th><th>金額</th></tr></thead>
-      <tbody>${budget.map(([n, c, v, s]) => `<tr><td>${n}<span class="note">${c}｜${s}</span></td><td class="num">${yen(v)}</td></tr>`).join("")}</tbody>
-      <tfoot><tr><td>合計</td><td class="num">${yen(budget.reduce((a, b) => a + b[2], 0))}</td></tr></tfoot>
+      ${["交通", "其他"].map(g => `<tbody>
+        <tr><th colspan="2">${g}費用（${GROUP_DESC[g]}）</th></tr>
+        ${budget.filter(b => b[1] === g).map(([n, , v, s]) => `<tr><td>${n}<span class="note">${s}</span></td><td class="num">${yen(v)}</td></tr>`).join("")}
+        <tr><td><b>小計</b></td><td class="num"><b>${yen(sum(g))}</b></td></tr>
+      </tbody>`).join("")}
+      <tfoot><tr><td>合計</td><td class="num">${yen(sum())}</td></tr></tfoot>
     </table>
   </section>
   <section class="extra" id="checklist">
     <h2>行前準備清單</h2>
     <ul class="checklist">${checklist.map(([t, s], i) => `<li><label><input type="checkbox" data-k="c${i}"><div><b>${t}</b><span>${s}</span></div></label></li>`).join("")}</ul>
   </section>`;
+
+// 頁首金額跟著預算表自動計算
+document.getElementById("sum-traffic").textContent = yen(sum("交通"));
+document.getElementById("sum-other").textContent = yen(sum("其他"));
+document.getElementById("sum-all").textContent = yen(sum());
 
 // 勾選狀態只存在這支手機的瀏覽器中
 document.querySelectorAll(".checklist input").forEach(el => {
