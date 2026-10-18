@@ -6,6 +6,7 @@
 <title>秋田親子自駕兩天一夜</title>
 <meta name="description" content="仙台出發，秋田兩天一夜親子自駕行程：橫手故里村、Round1、竿燈體驗、千秋公園、田澤湖。">
 <meta name="theme-color" content="#1f4e5f">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
   :root {
     --bg: #f6f4ef;
@@ -127,6 +128,20 @@
   dl.info { margin: 10px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: .9rem; }
   dl.info dt { color: var(--muted); white-space: nowrap; }
   dl.info dd { margin: 0; }
+  .route-map { margin: 0 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .route-map .map { height: 280px; background: var(--surface-2); }
+  .route-map .legend { padding: 10px 14px; font-size: .85rem; color: var(--muted); }
+  .route-map .legend ol { margin: 0 0 8px; padding-left: 1.4em; color: var(--text); }
+  .route-map .btn { margin-top: 2px; }
+  .pin {
+    width: 26px; height: 26px; border-radius: 50%; color: #fff; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4);
+  }
+  details.more { margin: 10px 0 0; background: var(--surface-2); border-radius: 10px; padding: 8px 12px; }
+  details.more summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+  details.more p, details.more ul { margin: 8px 0 0; font-size: .92rem; }
+  details.more .src { color: var(--muted); font-size: .78rem; }
   .warn { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 8px 12px; font-size: .88rem; margin: 10px 0 0; }
 
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -163,6 +178,7 @@
 
   footer { color: var(--muted); font-size: .78rem; padding: 24px 0 40px; }
   footer ul { padding-left: 1.2em; }
+  footer li { overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
@@ -197,6 +213,8 @@
   <ul id="credits"></ul>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="routes.js"></script>
 <script>
 // 導航連結：手機點擊會直接開啟 Google 地圖 App 並進入開車導航
 const nav = (q) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}&travelmode=driving`;
@@ -275,6 +293,16 @@ const days = [
         html: `<p>久保田城跡就在千秋公園內。綠意與護城河很漂亮，可散步到重建的御隅櫓（展望台）眺望秋田市景。</p>`,
         cost: "公園免費；御隅櫓 成人 ¥100／學生免費",
         note: "可停周邊收費停車場，園內步道平坦好走，但上御隅櫓有坡道與階梯。",
+        more: `<p><b>沒有石牆、也沒有天守閣的城</b>：久保田城是秋田藩主佐竹氏的居城。1602 年佐竹義宣奉德川家康之命從常陸國（今茨城縣）移封到秋田，隔年在神明山築城。城的特色是不砌石牆、不建天守，靠土堤和內護城河防守，佐竹氏在這裡傳了 12 代，一直到明治維新。</p>
+               <ul>
+                 <li><b>御隅櫓</b>：城內原本有 8 座角櫓，用來瞭望和存放武器。1989 年為紀念秋田市制 100 週年，重建了本丸西北角這一座，最上層是展望室，可以眺望整個秋田市。</li>
+                 <li><b>表門</b>：本丸正門，依據古繪圖和文獻重建，古時候叫「一ノ門」。</li>
+                 <li><b>御物頭御番所</b>：城內唯一留存至今的藩政時代建築，以前是守衛的崗哨。</li>
+                 <li><b>「千秋」名字的由來</b>：明治時期城跡交還給佐竹家，取秋田的「秋」，加上象徵長長久久的「千」，命名為「千秋園」。</li>
+                 <li><b>榮譽</b>：入選「日本 100 名城」、「日本櫻花名所 100 選」、「日本都市公園 100 選」等。春天有約 700 多株櫻花，夏天大手門護城河開滿荷花。</li>
+               </ul>
+               <p><b>帶孩子玩的小提示</b>：可以讓孩子找找看「城牆在哪裡？」，再告訴他這座城其實沒有石牆，是用土堆起來的，很容易引起好奇心。</p>
+               <p class="src">資料來源：<a href="https://tabi-mag.jp/ak0002/" target="_blank" rel="noopener">旅する日本語（tabi-mag）</a>、<a href="https://www.gltjp.com/ja/directory/item/12414/" target="_blank" rel="noopener">GLTJP</a></p>`,
         warn: "下一段車程 1 小時 20 分，抵達たつこ茶屋約 13:40 才吃午餐。建議在這裡先讓孩子吃點心，或在便利商店買飯糰墊胃。" },
       { type: "move", time: "12:20 – 13:40", eta: "約 1 小時 20 分", dist: "約 74 km", fee: "免費（一般國道）",
         route: "國道 46 號往仙北方向，穿越田園與山谷", tip: "需要時可在「道の駅 協和」休息。", q: "たつこ茶屋 仙北市田沢湖潟中山41" },
@@ -289,7 +317,16 @@ const days = [
         photo: "tatsuko", q: "たつこ像 田沢湖",
         html: `<p>看金色辰子像，在清澈湛藍的湖畔買飼料餵魚，國小孩子超愛。</p>`,
         cost: "自由參觀；魚飼料約 ¥100／包",
-        note: "湖邊風涼，帶件防風外套；餵魚時注意孩子腳步。" },
+        note: "湖邊風涼，帶件防風外套；餵魚時注意孩子腳步。",
+        more: `<p><b>辰子姬的傳說</b>：很久以前，住在附近的美麗少女辰子，希望自己永遠保持美貌，於是向大藏觀音祈願了一百天一百夜。願望達成的那一晚，觀音指示她到北邊的泉水喝水。辰子喝下泉水後，竟然變成了一條龍，從此沉入湖底，成為田澤湖的守護神。湖北岸的御座石神社，據說就是她喝水的地方。</p>
+               <ul>
+                 <li><b>金色雕像</b>：1968 年由雕刻家舟越保武製作的青銅像，表面閃耀金色，站在湖西岸的水中，背後是藍色湖水和群山，是田澤湖最具代表性的風景。</li>
+                 <li><b>日本最深的湖</b>：田澤湖最深處達 423.4 公尺，是日本第一（第二是北海道支笏湖、第三是十和田湖）。湖水很深很清，看起來是特別的寶藍色，冬天也常常不結冰。</li>
+                 <li><b>消失又被找到的魚</b>：湖裡原本有只在這裡生活的「國鱒（クニマス）」，後來因為引入酸性河水發電而在湖中絕跡；2010 年在山梨縣的西湖找到了牠們的後代，成為新聞話題。</li>
+                 <li><b>現在餵的是什麼魚</b>：湖水經過中和後，現在湖邊可以看到一群群的「ウグイ」（珠星三塊魚，一種淡水魚），就是孩子餵魚時會游過來的那些。</li>
+               </ul>
+               <p><b>帶孩子玩的小提示</b>：可以先講辰子變成龍的故事，再讓孩子看看雕像，問他「你覺得辰子現在住在湖的哪裡？」。</p>
+               <p class="src">資料來源：<a href="https://tabi-mag.jp/ak0028/" target="_blank" rel="noopener">旅する日本語（tabi-mag）</a>、<a href="https://www.nippon.com/ja/japan-video/ct051000040/" target="_blank" rel="noopener">nippon.com</a></p>` },
       { type: "move", time: "15:35 – 15:50", eta: "約 15 分鐘", dist: "約 12 km", fee: "免費",
         route: "沿湖畔道路繞到湖東側（田澤湖橋附近）", q: "山のはちみつ屋 仙北市田沢湖生保内石神163-3" },
       { type: "spot", time: "15:50 – 16:20", stay: "停留約 30 分鐘（下午茶）", name: "山之蜂蜜屋", ja: "山のはちみつ屋（仙北市田沢湖生保内石神163-3）",
@@ -359,6 +396,7 @@ function spotCard(it, color) {
       ${it.desc ? `<p>${it.desc}</p>` : ""}${it.html || ""}
       ${info ? `<dl class="info">${info}</dl>` : ""}
       ${it.warn ? `<p class="warn">注意：${it.warn}</p>` : ""}
+      ${it.more ? `<details class="more"><summary>深入了解這個景點</summary>${it.more}</details>` : ""}
       <div class="actions">
         <a class="btn primary" href="${nav(it.q)}" target="_blank" rel="noopener">${ICON_NAV}開始導航</a>
         <a class="btn ghost" href="${view(it.q)}" target="_blank" rel="noopener">${ICON_PIN}地圖</a>
@@ -377,11 +415,51 @@ function moveCard(it) {
     </div></div></li>`;
 }
 
+// 每天的路線簡圖：地圖＋停靠順序＋一鍵開啟 Google 地圖多點導航
+function routeMapBlock(d) {
+  const r = window.ROUTES && ROUTES[d.id];
+  if (!r) return "";
+  const s = r.stops, q = (p) => `${p.lat},${p.lng}`;
+  const gmaps = `https://www.google.com/maps/dir/?api=1&origin=${q(s[0])}&destination=${q(s[s.length - 1])}` +
+    `&waypoints=${encodeURIComponent(s.slice(1, -1).map(q).join("|"))}&travelmode=driving`;
+  return `<div class="route-map">
+      <div class="map" id="map-${d.id}" role="img" aria-label="${d.label} 開車路線圖"></div>
+      <div class="legend">
+        <ol>${s.map(p => `<li>${p.name}</li>`).join("")}</ol>
+        <div>線條為依 OpenStreetMap 道路資料畫出的示意路線，實際請以導航為準。</div>
+        <a class="btn ghost" href="${gmaps}" target="_blank" rel="noopener">${ICON_PIN}在 Google 地圖看整天路線</a>
+      </div>
+    </div>`;
+}
+
+function drawMaps() {
+  if (!window.L || !window.ROUTES) return;
+  days.forEach(d => {
+    const r = ROUTES[d.id], el = document.getElementById(`map-${d.id}`);
+    if (!r || !el) return;
+    const color = getComputedStyle(document.documentElement).getPropertyValue(d.id === "day1" ? "--day1" : "--day2").trim();
+    // 關閉滾輪縮放，避免電腦上捲動頁面時誤觸縮放
+    const map = L.map(el, { scrollWheelZoom: false, tap: false });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    const line = L.polyline(r.line, { color, weight: 5, opacity: .85 }).addTo(map);
+    r.stops.forEach((p, i) => {
+      L.marker([p.lat, p.lng], {
+        icon: L.divIcon({ className: "", html: `<div class="pin" style="background:${color}">${i + 1}</div>`, iconSize: [26, 26], iconAnchor: [13, 13] }),
+        title: p.name
+      }).bindTooltip(`${i + 1}. ${p.name}`).addTo(map);
+    });
+    map.fitBounds(line.getBounds(), { padding: [24, 24] });
+  });
+}
+
 const app = document.getElementById("app");
 app.innerHTML = days.map(d => `
   <section class="day" id="${d.id}">
     <div class="day-title"><span class="day-badge" style="background:${d.color}">${d.label}</span><h2>${d.title}</h2></div>
     <p class="day-sub">${d.sub}</p>
+    ${routeMapBlock(d)}
     <ol class="timeline">${d.items.map(it => it.type === "move" ? moveCard(it) : spotCard(it, d.color)).join("")}</ol>
   </section>`).join("") + `
   <section class="extra" id="budget">
@@ -417,6 +495,8 @@ document.querySelectorAll(".checklist input").forEach(el => {
 document.getElementById("credits").innerHTML = Object.values(photos).map(p => p.page
   ? `<li><a href="${srcLink(p)}" target="_blank" rel="noopener">${p.page.replace("File:", "")}</a>，${p.by}，${p.lic}</li>`
   : `<li><a href="${srcLink(p)}" target="_blank" rel="noopener">${p.by}</a></li>`).join("");
+
+drawMaps();
 </script>
 </body>
 </html>
