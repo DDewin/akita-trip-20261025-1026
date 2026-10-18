@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>秋田親子自駕兩天一夜</title>
+<meta name="description" content="仙台出發，秋田兩天一夜親子自駕行程：橫手故里村、萬代、竿燈體驗、千秋公園、田澤湖。">
+<meta name="theme-color" content="#1f4e5f">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --surface: #ffffff;
+    --surface-2: #eef1f0;
+    --text: #1d2326;
+    --muted: #5f6b70;
+    --line: #dcdfdc;
+    --accent: #1f6f78;
+    --accent-ink: #ffffff;
+    --day1: #c2552d;
+    --day2: #2f6fa8;
+    --warn-bg: #fff4dc;
+    --warn-ink: #7a5200;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121618;
+      --surface: #1b2124;
+      --surface-2: #232b2f;
+      --text: #e8ecec;
+      --muted: #9aa6aa;
+      --line: #2f383c;
+      --accent: #4fb3bd;
+      --accent-ink: #0b1416;
+      --day1: #ec8a63;
+      --day2: #6fa8dc;
+      --warn-bg: #3a2f17;
+      --warn-ink: #f3d28a;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+  header.hero {
+    background: linear-gradient(160deg, #1f4e5f, #2d7a7a);
+    color: #fff;
+    padding: 28px 0 22px;
+  }
+  .hero h1 { margin: 0 0 6px; font-size: 1.6rem; line-height: 1.3; }
+  .hero p { margin: 0; opacity: .9; font-size: .95rem; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+  .stat { background: rgba(255,255,255,.14); border-radius: 10px; padding: 8px 10px; }
+  .stat b { display: block; font-size: 1.05rem; }
+  .stat span { font-size: .78rem; opacity: .85; }
+
+  nav.tabs {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.tabs .wrap { display: flex; gap: 6px; padding-top: 8px; padding-bottom: 8px; overflow-x: auto; }
+  nav.tabs a {
+    flex: 0 0 auto;
+    text-decoration: none; color: var(--text);
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--surface-2); font-size: .9rem; font-weight: 600;
+  }
+
+  section.day { padding: 24px 0 8px; }
+  .day-title { display: flex; align-items: baseline; gap: 10px; margin: 0 0 4px; }
+  .day-badge { flex: none; white-space: nowrap; color: #fff; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 700; }
+  .day-title h2 { margin: 0; font-size: 1.25rem; line-height: 1.35; }
+  .day-sub { color: var(--muted); font-size: .9rem; margin: 0 0 16px; }
+
+  .timeline { position: relative; margin: 0; padding: 0 0 0 22px; list-style: none; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px;
+    width: 2px; background: var(--line);
+  }
+  .timeline > li { position: relative; margin-bottom: 14px; }
+  .timeline > li::before {
+    content: ""; position: absolute; left: -20px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--dot, var(--accent)); border: 2px solid var(--bg);
+  }
+  .timeline > li.move::before { width: 8px; height: 8px; left: -18px; top: 16px; background: var(--muted); }
+
+  .card {
+    background: var(--surface); border-radius: 14px; overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+  .card .photo { position: relative; aspect-ratio: 16 / 9; background: var(--surface-2); }
+  .card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .photo .credit {
+    position: absolute; right: 6px; bottom: 6px;
+    font-size: .65rem; color: #fff; background: rgba(0,0,0,.5);
+    padding: 1px 6px; border-radius: 4px; text-decoration: none;
+  }
+  .card .body { padding: 14px 16px 16px; }
+  .time { font-weight: 700; color: var(--dot, var(--accent)); font-size: .95rem; font-variant-numeric: tabular-nums; }
+  .card h3 { margin: 2px 0 2px; font-size: 1.15rem; line-height: 1.35; }
+  .card .ja { color: var(--muted); font-size: .85rem; margin: 0 0 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
+  .chip { background: var(--surface-2); border-radius: 999px; padding: 2px 10px; font-size: .8rem; }
+  .card p { margin: 0 0 8px; }
+  .card ul { margin: 0 0 8px; padding-left: 1.2em; }
+  dl.info { margin: 10px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: .9rem; }
+  dl.info dt { color: var(--muted); white-space: nowrap; }
+  dl.info dd { margin: 0; }
+  .warn { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 8px 12px; font-size: .88rem; margin: 10px 0 0; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 44px; padding: 0 16px; border-radius: 10px;
+    font-weight: 700; font-size: .95rem; text-decoration: none;
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); flex: 1 1 auto; }
+  .btn.ghost { border: 1px solid var(--line); color: var(--text); background: transparent; }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  .move .card { background: transparent; box-shadow: none; border: 1px dashed var(--line); }
+  .move .body { padding: 10px 14px; }
+  .move .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .move .eta { font-weight: 700; }
+  .move .route { color: var(--muted); font-size: .88rem; margin: 2px 0 0; }
+  .move .btn { min-height: 38px; padding: 0 12px; font-size: .88rem; }
+
+  section.extra { padding: 20px 0; }
+  section.extra h2 { font-size: 1.2rem; margin: 0 0 12px; }
+  table.budget { width: 100%; border-collapse: collapse; font-size: .9rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
+  table.budget th, table.budget td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.budget td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  table.budget tfoot td { font-weight: 700; }
+  table.budget .note { display: block; color: var(--muted); font-size: .8rem; }
+  .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .checklist li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+  .checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+  .checklist input { width: 20px; height: 20px; margin-top: 3px; flex: none; accent-color: var(--accent); }
+  .checklist b { display: block; }
+  .checklist span { color: var(--muted); font-size: .88rem; }
+
+  footer { color: var(--muted); font-size: .78rem; padding: 24px 0 40px; }
+  footer ul { padding-left: 1.2em; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>仙台出發 秋田兩天一夜<br>親子自駕行程</h1>
+    <p>家長與 7 歲孩童｜自駕（ETC 高速道路）｜住宿 EN HOTEL Akita</p>
+    <div class="stats">
+      <div class="stat"><b>約 570 km</b><span>總里程（仙台環迴）</span></div>
+      <div class="stat"><b>約 ¥10,850</b><span>高速費（ETC 概估）</span></div>
+      <div class="stat"><b>約 ¥3.5 萬</b><span>預估開銷（不含住宿）</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="快速跳轉">
+  <div class="wrap">
+    <a href="#day1">DAY 1</a>
+    <a href="#day2">DAY 2</a>
+    <a href="#budget">預算</a>
+    <a href="#checklist">行前清單</a>
+  </div>
+</nav>
+
+<main class="wrap" id="app"></main>
+
+<footer class="wrap">
+  <p>車程為依距離推估的參考值，實際以出發當下 Google 地圖路況為準。門票、營業時間請以官方公告為準。</p>
+  <p>照片來源（Wikimedia Commons，依各授權條款使用）：</p>
+  <ul id="credits"></ul>
+</footer>
+
+<script>
+// 導航連結：手機點擊會直接開啟 Google 地圖 App 並進入開車導航
+const nav = (q) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}&travelmode=driving`;
+const view = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+const IMG = "https://upload.wikimedia.org/wikipedia/commons/";
+const photos = {
+  sendai:   { src: IMG + "thumb/1/11/Sendai_Station_West_Exit_2021.jpg/960px-Sendai_Station_West_Exit_2021.jpg", page: "File:Sendai_Station_West_Exit_2021.jpg", by: "Mai Kana Chan", lic: "CC BY-SA 4.0" },
+  furusato: { src: IMG + "thumb/3/3a/Akita_Furusato-mura_20190503a.jpg/960px-Akita_Furusato-mura_20190503a.jpg", page: "File:Akita_Furusato-mura_20190503a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
+  wonder:   { src: IMG + "thumb/3/39/Akita_Furusato-mura%2C_Wonder_Castle_3.jpg/960px-Akita_Furusato-mura%2C_Wonder_Castle_3.jpg", page: "File:Akita_Furusato-mura,_Wonder_Castle_3.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
+  crane:    { src: IMG + "thumb/0/07/Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing%2C_Akihabara%2C_Chiyoda%2C_Tokyo%2C_Japan.jpg/960px-Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing%2C_Akihabara%2C_Chiyoda%2C_Tokyo%2C_Japan.jpg", page: "File:Claw_cranes_with_kawaii_stuffed_mascots_and_a_woman_playing,_Akihabara,_Chiyoda,_Tokyo,_Japan.jpg", by: "Basile Morin", lic: "CC BY-SA 4.0", note: "示意照（東京秋葉原）" },
+  kawabata: { src: IMG + "thumb/3/35/Kawabata_Street_at_night.jpg/960px-Kawabata_Street_at_night.jpg", page: "File:Kawabata_Street_at_night.jpg", by: "掬茶", lic: "CC BY-SA 4.0", note: "飯店旁川反通夜景" },
+  kanto:    { src: IMG + "thumb/5/5a/Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg/960px-Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", page: "File:Akita_City_Folk_Performing_Arts_Heritage_Center_20210802a.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
+  castle:   { src: IMG + "thumb/9/96/Osumi-Yagura_of_Kubota-Castle_20180520.jpg/960px-Osumi-Yagura_of_Kubota-Castle_20180520.jpg", page: "File:Osumi-Yagura_of_Kubota-Castle_20180520.jpg", by: "掬茶", lic: "CC BY-SA 4.0" },
+  tatsuko:  { src: IMG + "thumb/b/be/%E6%BD%9F%E5%B0%BB%E3%81%9F%E3%81%A4%E3%81%93%E5%83%8F20220702-P1000462.jpg/960px-%E6%BD%9F%E5%B0%BB%E3%81%9F%E3%81%A4%E3%81%93%E5%83%8F20220702-P1000462.jpg", page: "File:潟尻たつこ像20220702-P1000462.jpg", by: "くろふね", lic: "CC BY 4.0" },
+  lake:     { src: IMG + "thumb/0/0d/Lake_Tazawa_in_autumn_2022.jpg/960px-Lake_Tazawa_in_autumn_2022.jpg", page: "File:Lake_Tazawa_in_autumn_2022.jpg", by: "掬茶", lic: "CC BY-SA 4.0", note: "田澤湖秋景" },
+};
+
+const ICON_NAV = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4.5 20.3l.7.7L12 18l6.8 3 .7-.7z"/></svg>';
+const ICON_PIN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+
+// 行程資料：type "spot" 為景點，"move" 為移動
+const days = [
+  {
+    id: "day1", label: "DAY 1", color: "var(--day1)",
+    title: "橫手放電尋寶 ➜ 秋田市區美饌住宿",
+    sub: "10:00 從仙台站出發，全日車程約 3 小時 25 分",
+    items: [
+      { type: "spot", time: "10:00", name: "仙台站 出發", ja: "仙台駅", photo: "sendai", q: "仙台駅",
+        desc: "取車、確認 ETC 卡插好、孩子上廁所後出發。" },
+      { type: "move", time: "10:00 – 12:20", eta: "約 2 小時 20 分", dist: "約 190 km", fee: "高速費約 ¥4,490",
+        route: "東北自動車道 ➜ 北上 JCT 轉秋田自動車道 ➜ 橫手 IC", tip: "中途可在長者原 SA 休息、上洗手間、補點心。", q: "秋田ふるさと村" },
+      { type: "spot", time: "12:20 – 14:50", stay: "停留約 2.5 小時（午餐＋玩樂）", name: "秋田故里村", ja: "秋田ふるさと村（横手市赤坂字富ケ沢62-46）",
+        photo: "wonder", q: "秋田ふるさと村",
+        html: `<p><b>午餐</b>：美食街吃橫手炒麵、比內地雞拉麵。</p>
+               <p><b>放電</b>：Wonder Castle 巨型近直角溜滑梯、球池攀爬與錯視藝術，長途車後徹底伸展筋骨。</p>`,
+        cost: "園區免門票；Wonder Castle 成人 ¥700／國小 ¥500",
+        note: "大片免費停車場。巨型滑梯有服裝規定（長褲、平底鞋、安全帽），依現場人員指示。" },
+      { type: "move", time: "14:50 – 15:00", eta: "約 5 分鐘", dist: "約 2 km", fee: "免費",
+        route: "橫手市內短程移動", q: "万代 横手店 横手市安田向田179-1" },
+      { type: "spot", time: "15:00 – 16:15", stay: "停留約 1 小時 15 分", name: "萬代 橫手店", ja: "万代 横手店（横手市安田向田179-1，フレスポよこて內）",
+        photo: "crane", q: "万代 横手店 横手市安田向田179-1",
+        html: `<p>大型室內遊樂場，夾娃娃機超過 200 台，部分機台 10 日圓起就能玩，下雨天也適合。</p>`,
+        cost: "免費入場（遊戲依個人需求）",
+        note: "附設大型免費停車場，室內冷暖氣完備。",
+        warn: "2025 年 7 月起改裝為「夾娃娃機專門店」，原本的二手玩具、模型販售已結束。想尋寶買玩具請先確認現況。" },
+      { type: "move", time: "16:15 – 17:15", eta: "約 1 小時", dist: "約 73 km", fee: "高速費約 ¥1,870",
+        route: "橫手 IC ➜ 秋田自動車道北上 ➜ 秋田中央 IC ➜ 大町", tip: "10 月約 17:00 日落，後半段可能已天黑。", q: "EN HOTEL Akita 秋田市大町2-2-41" },
+      { type: "spot", time: "17:15 起", stay: "夜宿秋田市區", name: "EN HOTEL Akita", ja: "秋田市大町2-2-41（川反入口旁）",
+        photo: "kawabata", q: "EN HOTEL Akita 秋田市大町2-2-41",
+        html: `<p>入住卸行李後，步行到川反美食街或大町商圈，吃秋田米棒火鍋（きりたんぽ鍋）或比內地雞釜飯。</p>`,
+        cost: "住宿依預訂方案；停車約 ¥700–1,000／晚",
+        note: "周邊有特約停車場與便利商店，晚上散步很方便。" },
+    ]
+  },
+  {
+    id: "day2", label: "DAY 2", color: "var(--day2)",
+    title: "市區民俗巡禮 ➜ 田澤湖餵魚 ➜ 返回仙台",
+    sub: "10:00 退房出發，全日車程約 4 小時 50 分，約 19:20 回到仙台",
+    items: [
+      { type: "spot", time: "09:00 – 10:00", stay: "約 1 小時", name: "飯店早餐與退房", ja: "EN HOTEL Akita", photo: null, q: "EN HOTEL Akita 秋田市大町2-2-41",
+        html: `<p>從容吃早餐、整理行李，10:00 前退房。大件行李先放後車廂，隨身輕裝出遊。</p>` },
+      { type: "move", time: "10:00 – 10:05", eta: "約 2–5 分鐘", dist: "約 1 km", fee: "免費",
+        route: "大町市區內，步行也可（約 10 分鐘）", q: "秋田市民俗芸能伝承館" },
+      { type: "spot", time: "10:05 – 11:05", stay: "停留約 1 小時", name: "秋田市民俗藝能傳承館", ja: "ねぶり流し館（秋田市大町1-3-30）",
+        photo: "kanto", q: "秋田市民俗芸能伝承館",
+        html: `<p>竿燈祭的互動館！有專為兒童設計的小型輕量竿燈，孩子能親手挑戰掌心、肩頭平衡，還能敲祭典大太鼓。</p>`,
+        cost: "成人 ¥100；高中生以下免費",
+        note: "館前有小型停車場。" },
+      { type: "move", time: "11:05 – 11:10", eta: "約 4 分鐘", dist: "約 1.5 km", fee: "免費",
+        route: "市區短程移動", q: "千秋公園 秋田市" },
+      { type: "spot", time: "11:10 – 12:20", stay: "停留約 1 小時 10 分", name: "久保田城跡・千秋公園", ja: "千秋公園（秋田市千秋公園1）",
+        photo: "castle", q: "千秋公園 秋田市",
+        html: `<p>久保田城跡就在千秋公園內。綠意與護城河很漂亮，可散步到重建的御隅櫓（展望台）眺望秋田市景。</p>`,
+        cost: "公園免費；御隅櫓 成人 ¥100／學生免費",
+        note: "可停周邊收費停車場，園內步道平坦好走，但上御隅櫓有坡道與階梯。",
+        warn: "下一段車程 1 小時 20 分，抵達田澤湖約 13:40 才吃午餐。建議在這裡先讓孩子吃點心，或在便利商店買飯糰墊胃。" },
+      { type: "move", time: "12:20 – 13:40", eta: "約 1 小時 20 分", dist: "約 70 km", fee: "免費（一般國道）",
+        route: "國道 46 號往仙北方向，穿越田園與山谷", tip: "需要時可在「道の駅 協和」休息。", q: "たつこ像 田沢湖" },
+      { type: "spot", time: "13:40 – 15:30", stay: "停留約 1 小時 50 分（午餐＋餵魚）", name: "田澤湖 辰子像", ja: "たつこ像（仙北市西木町西明寺潟尻）",
+        photo: "tatsuko", q: "たつこ像 田沢湖",
+        html: `<p><b>午餐</b>：湖畔餐廳吃名物稻庭烏龍麵。</p>
+               <p><b>體驗</b>：看金色辰子像，在清澈湛藍的湖畔買飼料餵魚，國小孩子超愛。</p>`,
+        cost: "自由參觀；魚飼料約 ¥100／包",
+        note: "湖邊風涼，帶件防風外套；餵魚時注意孩子腳步。" },
+      { type: "move", time: "15:30 – 15:50", eta: "約 20 分鐘", dist: "約 12 km", fee: "免費",
+        route: "沿湖畔道路繞到湖東側（田澤湖橋附近）", q: "山のはちみつ屋 仙北市田沢湖生保内石神163-3" },
+      { type: "spot", time: "15:50 – 16:20", stay: "停留約 30 分鐘（下午茶）", name: "山之蜂蜜屋", ja: "山のはちみつ屋（仙北市田沢湖生保内石神163-3）",
+        photo: "lake", q: "山のはちみつ屋 仙北市田沢湖生保内石神163-3",
+        html: `<p>蜂巢造型的圓頂木屋，吃蜂蜜冰淇淋、試吃在地蜂蜜，順便買伴手禮。</p>`,
+        cost: "蜂蜜冰淇淋約 ¥400",
+        note: "停車位充足。營業 9:00–17:30（冬季至 17:00）。" },
+      { type: "move", time: "16:20 – 19:20", eta: "約 3 小時", dist: "約 240 km", fee: "高速費約 ¥4,490",
+        route: "國道 46 號 ➜ 盛岡 IC ➜ 東北自動車道南下 ➜ 仙台", tip: "國道 46 號山路段約 17:00 後天黑，請小心駕駛。中途可在紫波 SA 或前澤 SA 休息、買伴手禮。", q: "仙台駅" },
+      { type: "spot", time: "約 19:20", name: "返抵仙台站", ja: "仙台駅", photo: "sendai", q: "仙台駅",
+        desc: "還車、圓滿結束旅程！" },
+    ]
+  }
+];
+
+const budget = [
+  ["高速公路過路費", "交通", 10850, "仙台-橫手 4,490 + 橫手-秋田 1,870 + 盛岡-仙台 4,490"],
+  ["油資", "交通", 7000, "總里程約 570 km"],
+  ["故里村 Wonder Castle", "門票", 1200, "成人 700 + 國小 500"],
+  ["民俗藝能傳承館", "門票", 100, "國小兒童免費"],
+  ["久保田城御隅櫓", "門票", 100, "國小兒童免費"],
+  ["田澤湖餵魚與蜂蜜點心", "餐飲娛樂", 1000, "魚飼料數包 + 蜂蜜冰淇淋"],
+  ["市區飯店停車費", "住宿交通", 1000, "一晚約 700–1,000"],
+  ["第一天午餐（故里村）", "餐飲", 2500, "橫手炒麵、地雞拉麵"],
+  ["第一天晚餐（秋田市區）", "餐飲", 6000, "米棒火鍋、比內地雞"],
+  ["第二天午餐（田澤湖畔）", "餐飲", 3000, "稻庭烏龍麵或定食"],
+  ["零食與途中補給", "雜支", 2000, "SA 點心、飲料"],
+];
+
+const checklist = [
+  ["ETC 卡確認", "出發前確認車載器已插入 ETC 卡並感應正常。"],
+  ["孩子車上娛樂與保暖", "單趟車程 1–3 小時，備好音樂／故事、保溫壺、小薄毯。"],
+  ["故里村滑梯服裝", "Wonder Castle 巨型滑梯需穿長褲與平底鞋，現場戴安全帽。"],
+  ["換洗衣物與毛巾", "跑跳流汗後可在車上換衣服。"],
+  ["田澤湖防風外套", "湖邊風涼，餵魚時留意孩子腳步。"],
+  ["手機導航準備", "安裝 Google 地圖 App，出發前開好行動網路或 eSIM，車上備手機架與充電線。"],
+];
+
+const yen = (n) => "¥" + n.toLocaleString("ja-JP");
+
+function spotCard(it, color) {
+  const p = it.photo && photos[it.photo];
+  const photo = p ? `<div class="photo"><img src="${p.src}" alt="${it.name}" loading="lazy" decoding="async">
+      <a class="credit" href="https://commons.wikimedia.org/wiki/${encodeURI(p.page)}" target="_blank" rel="noopener">${p.note ? p.note + "・" : ""}© ${p.by}</a></div>` : "";
+  const info = [
+    it.cost && `<dt>費用</dt><dd>${it.cost}</dd>`,
+    it.note && `<dt>備註</dt><dd>${it.note}</dd>`,
+  ].filter(Boolean).join("");
+  return `<li style="--dot:${color}"><article class="card">${photo}<div class="body">
+      <div class="time">${it.time}${it.stay ? `<span style="color:var(--muted);font-weight:500">｜${it.stay}</span>` : ""}</div>
+      <h3>${it.name}</h3>
+      <p class="ja">${it.ja}</p>
+      ${it.desc ? `<p>${it.desc}</p>` : ""}${it.html || ""}
+      ${info ? `<dl class="info">${info}</dl>` : ""}
+      ${it.warn ? `<p class="warn">注意：${it.warn}</p>` : ""}
+      <div class="actions">
+        <a class="btn primary" href="${nav(it.q)}" target="_blank" rel="noopener">${ICON_NAV}開始導航</a>
+        <a class="btn ghost" href="${view(it.q)}" target="_blank" rel="noopener">${ICON_PIN}地圖</a>
+      </div>
+    </div></article></li>`;
+}
+
+function moveCard(it) {
+  return `<li class="move"><div class="card"><div class="body">
+      <div class="row">
+        <div><span class="eta">🚗 ${it.eta}</span>　<span style="color:var(--muted)">${it.dist}｜${it.fee}</span></div>
+        <a class="btn ghost" href="${nav(it.q)}" target="_blank" rel="noopener">${ICON_NAV}導航下一站</a>
+      </div>
+      <p class="route">${it.time}｜${it.route}</p>
+      ${it.tip ? `<p class="route">${it.tip}</p>` : ""}
+    </div></div></li>`;
+}
+
+const app = document.getElementById("app");
+app.innerHTML = days.map(d => `
+  <section class="day" id="${d.id}">
+    <div class="day-title"><span class="day-badge" style="background:${d.color}">${d.label}</span><h2>${d.title}</h2></div>
+    <p class="day-sub">${d.sub}</p>
+    <ol class="timeline">${d.items.map(it => it.type === "move" ? moveCard(it) : spotCard(it, d.color)).join("")}</ol>
+  </section>`).join("") + `
+  <section class="extra" id="budget">
+    <h2>預估開銷（不含住宿）</h2>
+    <table class="budget">
+      <thead><tr><th>項目</th><th>金額</th></tr></thead>
+      <tbody>${budget.map(([n, c, v, s]) => `<tr><td>${n}<span class="note">${c}｜${s}</span></td><td class="num">${yen(v)}</td></tr>`).join("")}</tbody>
+      <tfoot><tr><td>合計</td><td class="num">${yen(budget.reduce((a, b) => a + b[2], 0))}</td></tr></tfoot>
+    </table>
+  </section>
+  <section class="extra" id="checklist">
+    <h2>行前準備清單</h2>
+    <ul class="checklist">${checklist.map(([t, s], i) => `<li><label><input type="checkbox" data-k="c${i}"><div><b>${t}</b><span>${s}</span></div></label></li>`).join("")}</ul>
+  </section>`;
+
+// 勾選狀態只存在這支手機的瀏覽器中
+document.querySelectorAll(".checklist input").forEach(el => {
+  try { el.checked = localStorage.getItem("akita-" + el.dataset.k) === "1"; } catch (e) {}
+  el.addEventListener("change", () => {
+    try { localStorage.setItem("akita-" + el.dataset.k, el.checked ? "1" : "0"); } catch (e) {}
+  });
+});
+
+document.getElementById("credits").innerHTML = Object.values(photos).map(p =>
+  `<li><a href="https://commons.wikimedia.org/wiki/${encodeURI(p.page)}" target="_blank" rel="noopener">${p.page.replace("File:", "")}</a>，${p.by}，${p.lic}</li>`).join("");
+</script>
+</body>
+</html>
